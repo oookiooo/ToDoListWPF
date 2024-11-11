@@ -1,0 +1,37 @@
+﻿<Window x:Class="ToDoListWPF.MainWindow"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:ToDoListWPF.ViewModels"
+        Title="Todo List" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DatePicker SelectedDate="{Binding SelectedDate}" Margin="10" />
+
+        <ListView ItemsSource="{Binding TaskItems}" SelectedItem="{Binding SelectedTask}" Grid.Row="1" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Tytuł" DisplayMemberBinding="{Binding Title}" Width="200"/>
+                    <GridViewColumn Header="Termin" DisplayMemberBinding="{Binding DueDate}" Width="150"/>
+                    <GridViewColumn Header="Ukończone" DisplayMemberBinding="{Binding IsCompleted}" Width="100"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Dodaj" Command="{Binding AddTaskCommand}" Width="100" Margin="5"/>
+            <Button Content="Edytuj" Command="{Binding EditTaskCommand}" Width="100" Margin="5"/>
+            <Button Content="Usuń" Command="{Binding DeleteTaskCommand}" Width="100" Margin="5"/>
+        </StackPanel>
+
+        <tb:TaskbarIcon x:Name="MyNotifyIcon"  Visibility="Hidden"/>
+    </Grid>
+</Window>
