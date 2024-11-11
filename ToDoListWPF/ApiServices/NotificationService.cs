@@ -13,5 +13,28 @@ namespace ToDoListWPF.ApiServices
 {
     public static class NotificationService
     {
+        private static TaskbarIcon _notifyIcon;
+
+
+        public static void Initialize(TaskbarIcon notifyIcon)
+        {
+            _notifyIcon = notifyIcon;
+        }
+
+        public static void ShowNotification(string title, string message)
+        {
+
+            var notificationManager = new Notifications.Wpf.NotificationManager();
+
+            notificationManager.Show(new NotificationContent
+            {
+                Title = title,
+                Message = message,
+                Type = NotificationType.Warning
+            });
+
+
+
+        }
     }
 }
